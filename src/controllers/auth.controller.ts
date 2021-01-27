@@ -18,7 +18,6 @@ class AuthController {
         'http://localhost:5000/signup',
         bodyForBookService,
       )
-      debugger
       userData.userId = data.data.userId
       const signUpUserData: User = await this.authService.signup(userData)
       res.status(201).json({ data: signUpUserData, message: 'signup' })

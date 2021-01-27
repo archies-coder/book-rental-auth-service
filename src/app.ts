@@ -1,3 +1,4 @@
+import { Roles } from './models/users.model'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { NextFunction, Response, Request } from 'express'
@@ -14,6 +15,9 @@ import errorMiddleware from './middlewares/error.middleware'
 import { logger, stream } from './utils/logger'
 import proxy from 'express-http-proxy'
 import AuthRoute from './routes/auth.route'
+import IndexRoute from './routes/index.route'
+import authMiddleware from './middlewares/auth.middleware'
+import roleMiddleware from './middlewares/role.middleware'
 
 class App {
   public app: express.Application
@@ -78,9 +82,12 @@ class App {
 
   private initializeRoutes(routes: Routes[]) {
     this.app.use('/', new AuthRoute().router)
+
     routes.forEach(route => {
       this.app.use(
         '/',
+        authMiddleware,
+        roleMiddleware(Roles.ADMIN),
         (req: Request, res: Response, next: NextFunction) => {
           App.bookProxy(req, res, next)
         },
