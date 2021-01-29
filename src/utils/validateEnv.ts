@@ -1,4 +1,4 @@
-import { cleanEnv, port, str } from 'envalid';
+import { cleanEnv, port, str } from 'envalid'
 
 const validateEnv = () => {
   cleanEnv(process.env, {
@@ -8,7 +8,8 @@ const validateEnv = () => {
     MONGO_PORT: str(),
     MONGO_DATABASE: str(),
     JWT_SECRET: str(),
-  });
-};
+    BOOK_RENTAL_SERVICE_URL: str(),
+  })
+}
 
-export default validateEnv;
+export default validateEnv

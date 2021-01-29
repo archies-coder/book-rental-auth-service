@@ -15,7 +15,7 @@ class AuthController {
     try {
       const { role, ...bodyForBookService } = userData
       const { data } = await axios.post(
-        'http://localhost:5000/signup',
+        process.env.BOOK_RENTAL_SERVICE_URL + '/signup',
         bodyForBookService,
       )
       userData.userId = data.data.userId

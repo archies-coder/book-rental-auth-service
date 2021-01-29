@@ -81,16 +81,16 @@ class App {
   }
 
   private initializeRoutes(routes: Routes[]) {
-    this.app.use('/', new AuthRoute().router)
+    this.app.use('/api/auth', new AuthRoute().router)
 
     routes.forEach(route => {
       this.app.use(
         '/',
-        authMiddleware,
-        roleMiddleware(Roles.ADMIN),
-        (req: Request, res: Response, next: NextFunction) => {
-          App.bookProxy(req, res, next)
-        },
+        // authMiddleware,
+        // roleMiddleware(Roles.ADMIN),
+        // (req: Request, res: Response, next: NextFunction) => {
+        //   App.bookProxy(req, res, next)
+        // },
         route.router,
       )
     })
